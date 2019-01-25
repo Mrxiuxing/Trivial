@@ -27,7 +27,7 @@ class DevelopConfig(Config):
         "ENGINE": "mysql",
         "DRIVER": "pymysql",
         "USER": "root",
-        "PASSWORD": "haodaye",
+        "PASSWORD": "xxxxxx",
         "HOST": "localhost",
         "PORT": "3306",
         "DB": "flaskproject"
@@ -43,7 +43,7 @@ class TestingConfig(Config):
         "ENGINE": "mysql",
         "DRIVER": "pymysql",
         "USER": "root",
-        "PASSWORD": "haodaye",
+        "PASSWORD": "xxxxxx",
         "HOST": "localhost",
         "PORT": "3306",
         "DB": "FlaskProject"
@@ -57,7 +57,7 @@ class StagingConfig(Config):
         "ENGINE": "mysql",
         "DRIVER": "pymysql",
         "USER": "root",
-        "PASSWORD": "haodaye",
+        "PASSWORD": "xxxxxx",
         "HOST": "localhost",
         "PORT": "3306",
         "DB": "FlaskProject"
@@ -71,7 +71,7 @@ class ProductConfig(Config):
         "ENGINE": "mysql",
         "DRIVER": "pymysql",
         "USER": "root",
-        "PASSWORD": "haodaye",
+        "PASSWORD": "xxxxxx",
         "HOST": "localhost",
         "PORT": "3306",
         "DB": "FlaskProject"
