@@ -11,3 +11,4 @@ Python100例（Python3）
 Python写的小东西
 =
 * [一个简单的可以打印某个程序运行时间的装饰器](https://github.com/Mr-xiuxing/Trivial/blob/master/GetTime.py)
+* [一个简单的华氏度与摄氏度转换的小程序](https://github.com/Mr-xiuxing/Trivial/blob/master/TempConvert.py)
