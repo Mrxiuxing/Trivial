@@ -1,0 +1,60 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}首页{% endblock %}
+{% block header_extends %}{% endblock %}
+{% block navbar %}
+    <div class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle"
+                        data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url_for("index_blue.index") }}">首页</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url_for("resume_blue.resume") }}">简历</a></li>
+                    <li><a href="{{ url_for("travel_log_blue.travel_log") }}">旅行</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="page-header">
+            <h1 align="center" style="height: 50px">欢迎查阅</h1>
+        </div>
+        <table width="600" align="center">
+            <tr>
+                <td><h3>注：做的题目为Zingfront智线笔试题2018版C新</h3></td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="https://github.com/Mr-xiuxing/Trivial/blob/master/mini%20program/str_search.py"><h3>
+                        题1、寻找公共单词</h3></a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="https://github.com/Mr-xiuxing/Trivial/blob/master/mini%20program/resolve.py"><h3>
+                        题2、将整数能分解成若干个连续整数的和的形式</h3></a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{{ url_for("resume_blue.resume") }}"><h3>题3、个人简历HTML版</h3></a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{{ url_for("travel_log_blue.travel_log") }}"><h3>题4、旅行日志</h3></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+{% endblock %}

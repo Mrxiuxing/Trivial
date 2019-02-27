@@ -1,0 +1,105 @@
+<html lang="en">
+<head>
+    <title>旅行日志</title>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=IDvNBsejl9oqMbPF316iKsXR"></script>
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css"/>
+</head>
+<body>
+<div class="demo_main">
+    <fieldset class="demo_content">
+        <div style="min-height: 100%; width: 100%;" id="map">
+        </div>
+        <script type="text/javascript">
+            var markerArr = [
+                {title: "名称：故宫", point: "116.403414,39.924091", address: "北京市东城区景山前街4号", details: "想去还没去的地方"},
+                {title: "名称：泰山学院", point: "117.045912,36.22822", address: "泰安市岱岳区东岳大街525号", details: "成长的地方"},
+                {title: "名称：泰山", point: "117.09873,36.269575", address: "泰安市岱岳区东岳大街西段501号", details: "会当凌绝顶，一览众山小"},
+                {title: "名称：大明湖公园", point: "117.03246,36.680728", address: "大明湖路271号 ", details: "大明湖畔没有皇上，也没有夏雨荷"},
+                {title: "名称：千佛山", point: "117.04269,36.645042", address: "经十一路18号 ", details: "千佛山风景名胜区"},
+                {title: "名称：东方明珠", point: "121.506377,31.245105", address: "上海市浦东新区世纪大道1号", details: "曾经工作的地方"}
+            ];
+
+            function map_init() {
+                var map = new BMap.Map("map"); // 创建Map实例
+                var point = new BMap.Point(116.403326, 39.915351); //地图中心点，北京
+                map.centerAndZoom(point, 6); // 初始化地图,设置中心点坐标和地图级别。
+                map.enableScrollWheelZoom(true); //启用滚轮放大缩小
+                //地图、卫星、混合模式切换
+                map.addControl(new BMap.MapTypeControl({mapTypes: [BMAP_NORMAL_MAP, BMAP_SATELLITE_MAP, BMAP_HYBRID_MAP]}));
+                //向地图中添加缩放控件
+                var ctrlNav = new window.BMap.NavigationControl({
+                    anchor: BMAP_ANCHOR_TOP_LEFT,
+                    type: BMAP_NAVIGATION_CONTROL_LARGE
+                });
+                map.addControl(ctrlNav);
+                //向地图中添加缩略图控件
+                var ctrlOve = new window.BMap.OverviewMapControl({
+                    anchor: BMAP_ANCHOR_BOTTOM_RIGHT,
+                    isOpen: 1
+                });
+                map.addControl(ctrlOve);
+                //向地图中添加比例尺控件
+                var ctrlSca = new window.BMap.ScaleControl({
+                    anchor: BMAP_ANCHOR_BOTTOM_LEFT
+                });
+                map.addControl(ctrlSca);
+
+                var point = new Array(); //存放标注点经纬信息的数组
+                var marker = new Array(); //存放标注点对象的数组
+                var info = new Array(); //存放提示信息窗口对象的数组
+                var searchInfoWindow = new Array();//存放检索信息窗口对象的数组
+                for (var i = 0; i < markerArr.length; i++) {
+                    var p0 = markerArr[i].point.split(",")[0]; //
+                    var p1 = markerArr[i].point.split(",")[1]; //按照原数组的point格式将地图点坐标的经纬度分别提出来
+                    point[i] = new window.BMap.Point(p0, p1); //循环生成新的地图点
+                    marker[i] = new window.BMap.Marker(point[i]); //按照地图点坐标生成标记
+                    map.addOverlay(marker[i]);
+                    marker[i].setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                    //显示marker的title，marker多的话可以注释掉
+                    var label = new window.BMap.Label(markerArr[i].title, {offset: new window.BMap.Size(20, -10)});
+                    marker[i].setLabel(label);
+                    // 创建信息窗口对象
+                    info[i] = "<p style=font-size:12px;line-height:1.8em;’>" + "</br>" + markerArr[i].details + "</br>地址：" + markerArr[i].address + "</br></p>";
+                    //创建百度样式检索信息窗口对象
+                    searchInfoWindow[i] = new BMapLib.SearchInfoWindow(map, info[i], {
+                        title: markerArr[i].title,      //标题
+                        width: 290,             //宽度
+                        height: 55,              //高度
+                        panel: "panel",         //检索结果面板
+                        enableAutoPan: true,     //自动平移
+                        searchTypes: [
+                            BMAPLIB_TAB_SEARCH,   //周边检索
+                            BMAPLIB_TAB_TO_HERE,  //到这里去
+                            BMAPLIB_TAB_FROM_HERE //从这里出发
+                        ]
+                    });
+                    //添加点击事件
+                    marker[i].addEventListener("click",
+                        (function (k) {
+                            // js 闭包
+                            return function () {
+                                //将被点击marker置为中心
+                                //map.centerAndZoom(point[k], 18);
+                                //在marker上打开检索信息窗口
+                                searchInfoWindow[k].open(marker[k]);
+                            }
+                        })(i)
+                    );
+                }
+            }
+
+            //异步调用百度js
+            function map_load() {
+                var load = document.createElement("script");
+                load.src = "http://api.map.baidu.com/api?v=2.0&ak=0GIA5xcn863ZMkkvrZPQrU9qNQ7B0dE6&callback=map_init";
+                document.body.appendChild(load);
+            }
+
+            window.onload = map_load;
+        </script>
+    </fieldset>
+</div>
+</body>
+</html>
